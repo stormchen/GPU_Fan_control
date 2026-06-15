@@ -1,0 +1,12 @@
+[Unit]
+Description=Nvidia A10 GPU Temperature Logger
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/opt/a10-fan-control/A10_Temp_Logger.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
