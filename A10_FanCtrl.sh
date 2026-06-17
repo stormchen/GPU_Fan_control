@@ -26,7 +26,11 @@ find_hwmon() {
     return 1
 }
 
-if [ -z "$HWMON_PATH" ]; then
+is_nuvoton_hwmon() {
+    [ -n "$1" ] && [ -f "$1/name" ] && [[ "$(cat "$1/name" 2>/dev/null)" =~ ^(nct679|nct677|nct61) ]]
+}
+
+if ! is_nuvoton_hwmon "$HWMON_PATH"; then
     if ! find_hwmon; then
         echo "FATAL: No Nuvoton hwmon device found. Load nct6775 module." >&2
         exit 1
